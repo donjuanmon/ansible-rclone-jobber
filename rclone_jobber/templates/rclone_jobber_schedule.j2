@@ -10,7 +10,12 @@ source="{{ item.src }}"
 dest="{{ item.dst }}"
 # file move behavior
 move_old_files_to="{{ item.move_old_files }}"
+{% if item.filter == true %}
+options="--filter-from {{item.file_name}}_filter {{ item.opts }}"
+{% else %}
 options="{{ item.opts }}"
+{% endif %}
+
 monitoring_URL="{{ item.monitor_url }}"
 
 $rclone_jobber/rclone_jobber.sh "$source" "$dest" "$move_old_files_to" "$options" "{{ item.job_name }}" "$monitoring_URL"
