@@ -6,6 +6,7 @@ https://github.com/wolfv6/rclone_jobber
 Requires a valid rclone configuration on target host. https://github.com/stefangweichinger/ansible-rclone is recommended.
 
 # Example configuration
+```
 rclone_jobber_config:
   - file_name: docker_backup
     src: /mnt/storage/pictures
@@ -23,3 +24,4 @@ rclone_jobber_config:
       - *.tmp # temp files
       - .* # hidden files
     cron: yes
+```
