@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  author: donjuanmon
+  description: Configure rclone_jobber backups.
+  license: GPLv2
+  min_ansible_version: Tested on 2.9.6
+  galaxy_tags:
+    - system
+    - networking
+dependencies: []

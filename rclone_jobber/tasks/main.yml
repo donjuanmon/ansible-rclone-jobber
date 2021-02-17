@@ -1,0 +1,10 @@
+---
+- name: download rclone_jobber
+  include: rclone_jobber.yml
+  tags:
+    - rclone_jobber
+
+- name: schedule backup
+  include: rclone_backup.yml
+  tags:
+    - rclone_backup

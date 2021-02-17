@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+# {{ ansible_managed }}
+
+# path of rclone_jobber.sh
+rclone_jobber={{ rclone_jobber_git }}
+
+# backup source
+source="{{ item.src }}"
+# backup destination
+dest="{{ item.dst }}"
+# file move behavior
+move_old_files_to="{{ item.move_old_files }}"
+options="{{ item.opts }}"
+monitoring_URL="{{ item.monitor_url }}"
+
+$rclone_jobber/rclone_jobber.sh "$source" "$dest" "$move_old_files_to" "$options" "{{ item.job_name }}" "$monitoring_URL"

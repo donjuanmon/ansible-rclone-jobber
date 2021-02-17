@@ -1,0 +1,4 @@
+---
+rclone_jobber_git: /opt/rclone_jobber
+rclone_jobber_scripts: /opt/scripts
+rclone_jobber_io_uuid: ""

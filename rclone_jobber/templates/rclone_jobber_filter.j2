@@ -1,0 +1,17 @@
+# {{ ansible_managed }}
+########################## 1) includes #######################################
+{% for rclone_jobber in rclone_jobber_config %}
+{% if rclone_jobber.includes is defined %}
+{% for incl in rclone_jobber.includes %}
++ {{ incl }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+########################## 2) excludes #######################################
+{% for rclone_jobber in rclone_jobber_config %}
+{% if rclone_jobber.excludes is defined %}
+{% for excl in rclone_jobber.excludes %}
+- {{ excl }}
+{% endfor %}
+{% endif %}
+{% endfor %}

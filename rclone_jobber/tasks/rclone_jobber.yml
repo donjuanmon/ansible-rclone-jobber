@@ -1,0 +1,6 @@
+---
+- name: git rclone_jobber
+  git:
+    repo: 'https://github.com/wolfv6/rclone_jobber.git'
+    dest: "{{ rclone_jobber_git }}"
+    version: master

@@ -1,0 +1,38 @@
+---
+- name: Create scripts directory
+  ansible.builtin.file:
+    path: "{{ rclone_jobber_scripts }}"
+    state: directory
+    mode: '0755'
+
+- name: Copy backup job to scripts
+  ansible.builtin.template:
+    src: rclone_jobber_schedule.j2
+    dest: "{{ rclone_jobber_scripts }}/{{ item.file_name}}.sh"
+    mode: '0755'
+  with_items:
+    - "{{ rclone_jobber_config }}"
+
+- name: Create filter file
+  ansible.builtin.template:
+    src: rclone_jobber_filter.j2
+    dest: "{{ rclone_jobber_scripts }}/{{ item.file_name}}_filter"
+    mode: '0755'
+  when: 
+    - item.filter
+  with_items:
+    - "{{ rclone_jobber_config }}"
+
+- name: Setup cron job
+  cron:
+    user: "root"
+    job: "{{ rclone_jobber_scripts }}/{{ item.file_name}}.sh"
+    name: "{{ item.file_name}}"
+    weekday: "{{ item.weekday | default ('*') }}"
+    minute: "{{ item.minute | default ('00')}}"
+    hour: "{{ item.hour | default ('02') }}"
+    dom: "{{ item.dom|default('*') }}"
+  when:
+    - item.cron
+  with_items:
+    - "{{ rclone_jobber_config }}"
