@@ -11,7 +11,7 @@ dest="{{ item.dst }}"
 # file move behavior
 move_old_files_to="{{ item.move_old_files }}"
 {% if item.filter == true %}
-options="--filter-from {{item.file_name}}_filter {{ item.opts }}"
+options="--filter-from={{ rclone_jobber_scripts }}/{{item.file_name}}_filter {{ item.opts }}"
 {% else %}
 options="{{ item.opts }}"
 {% endif %}

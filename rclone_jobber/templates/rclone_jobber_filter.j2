@@ -1,17 +1,21 @@
 # {{ ansible_managed }}
-########################## 1) includes #######################################
-{% for rclone_jobber in rclone_jobber_config %}
-{% if rclone_jobber.includes is defined %}
-{% for incl in rclone_jobber.includes %}
-+ {{ incl }}
+########################## 1) include files #######################################
+{% if item.include_files is defined %}
+{% for incl_files in item.include_files %}
++ {{ incl_files }}
 {% endfor %}
 {% endif %}
-{% endfor %}
-########################## 2) excludes #######################################
-{% for rclone_jobber in rclone_jobber_config %}
-{% if rclone_jobber.excludes is defined %}
-{% for excl in rclone_jobber.excludes %}
-- {{ excl }}
+########################## 2) exclude patterns #######################################
+{% if item.exclude_patterns is defined %}
+{% for excl_patterns in item.exclude_patterns %}
+- {{ excl_patterns }}
 {% endfor %}
 {% endif %}
+########################## 3) include folders #######################################
+{% if item.include_folders is defined %}
+{% for incl_folders in item.include_folders %}
++ {{ incl_folders }}
 {% endfor %}
+{% endif %}
+########################## 4) exclude everything else #######################################
+- *

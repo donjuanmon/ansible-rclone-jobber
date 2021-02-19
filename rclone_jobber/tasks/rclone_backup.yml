@@ -10,8 +10,11 @@
     src: rclone_jobber_schedule.j2
     dest: "{{ rclone_jobber_scripts }}/{{ item.file_name}}.sh"
     mode: '0755'
-  with_items:
-    - "{{ rclone_jobber_config }}"
+  loop: "{{ rclone_jobber_config }}"
+
+- debug:
+    msg: "{{item}}: {{item|type_debug}}"
+  loop: "{{ rclone_jobber_config }}"
 
 - name: Create filter file
   ansible.builtin.template:
@@ -20,8 +23,7 @@
     mode: '0755'
   when: 
     - item.filter
-  with_items:
-    - "{{ rclone_jobber_config }}"
+  loop: "{{ rclone_jobber_config }}"
 
 - name: Setup cron job
   cron:
@@ -34,5 +36,4 @@
     dom: "{{ item.dom|default('*') }}"
   when:
     - item.cron
-  with_items:
-    - "{{ rclone_jobber_config }}"
+  loop: "{{ rclone_jobber_config }}"

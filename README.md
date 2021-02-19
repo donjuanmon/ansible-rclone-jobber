@@ -8,20 +8,29 @@ Requires a valid rclone configuration on target host. https://github.com/stefang
 # Example configuration
 ```
 rclone_jobber_config:
-  - file_name: docker_backup
-    src: /mnt/storage/pictures
-    dst: "google_drive:" # Name of remote rclone config
+  - file_name: home_backup
+    src: "$HOME"
+    dst: "google_drive:"
     opts: "--dry-run"
     move_old_files: "dated_directory"
-    monitor_url: "https://hc-ping.com/12345-6789-abcd-efgh
+    monitor_url: "https://hc-ping.com/1234-5678-abcde"
     job_name: "$(basename $0)"
-    filter: yes
-    includes:
-      - direc0/** # full directory
-      - .bashrc # hidden files
-      - *.jpg # all jpegs
-    excludes:
-      - *.tmp # temp files
-      - .* # hidden files
+    filter: yes # everything except for explicit items below will be filtered
+    include_files:
+      - ".bashrc" # config file
+      - "direc1/.thingrc" # file within directory
+      - ".git/**" # entire git folder
+    exclude_patterns:
+      - "*_exc/**" # directory names ending in _exc
+      - ".*/**" # hidden directories
+      - "*.bak" # file names with extension
+    include_folders:
+      - "direc_empty/**"
+      - "direc0/**"
     cron: yes
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/cron_module.html
+    weekday: "5"
+    minute: "00"
+    hour: "02"
+    dom: "5"
 ```
