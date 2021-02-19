@@ -12,10 +12,6 @@
     mode: '0755'
   loop: "{{ rclone_jobber_config }}"
 
-- debug:
-    msg: "{{item}}: {{item|type_debug}}"
-  loop: "{{ rclone_jobber_config }}"
-
 - name: Create filter file
   ansible.builtin.template:
     src: rclone_jobber_filter.j2
